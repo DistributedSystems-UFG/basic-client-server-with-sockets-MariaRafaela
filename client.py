@@ -2,7 +2,7 @@ from socket  import *
 from constCS import * #-
 import random
 import time
-NUM_REQUISICOES = 100000
+NUM_REQUISICOES = 100
 OPERACOES = ["sum", "sub", "mul"]
 
 tempo_total = 0
@@ -36,7 +36,7 @@ def modo_automatico():
     tempo_total = 0
     s = socket(AF_INET, SOCK_STREAM)
     s.connect((HOST, PORT))
-
+    conn_start = time.perf_counter()
     for i in range(NUM_REQUISICOES):
         msg = gerar_requisicao()
         start = time.perf_counter()
@@ -46,8 +46,9 @@ def modo_automatico():
         tempo_resposta = end-start
         tempo_total += tempo_resposta
         #print ("Resultado:", data.decode(), f"Duracao: {(tempo_resposta*1000):.3f}")            # print the result
-    
-    print(f"Tempo total: {(tempo_total*1000)} Tempo médio: {tempo_total*1000/NUM_REQUISICOES}")
+    conn_end = time.perf_counter()
+    tempo_simulacao = conn_end-conn_start
+    print(f"Tempo total: {(tempo_simulacao*1000)} Tempo médio: {tempo_total*1000/NUM_REQUISICOES}")
 
 
 
